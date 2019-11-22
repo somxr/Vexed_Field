@@ -15,14 +15,11 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator PrintWaypoints()
     {
-        print("Starting patrol");
         foreach (Waypoint waypoint in path)
         {
-            print("Visiting Block: " + waypoint);
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(1f);
         }
-        print("Ending Patrol");
     }
 
     // Update is called once per frame
