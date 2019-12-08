@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] float secondsBetweenSpawns = 2f;
+    [Range(0.1f,120f)] [SerializeField] float secondsBetweenSpawns = 2f;
     [SerializeField] GameObject enemy;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,6 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             Instantiate(enemy, new Vector3(0, 0, 0), Quaternion.identity);
-            print("spawned new enemy");
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
     }

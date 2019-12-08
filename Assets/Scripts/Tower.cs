@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] Transform targetEnemy;
+    //Parameters
     [SerializeField] Transform objectToPan;
     [SerializeField] ParticleSystem bullets;
     [SerializeField] float enemyRange;
     EnemyController [] enemies;
+
+    //State of each tower
+    Transform targetEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -20,47 +23,64 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        CheckIfEnemyExists();
-    }
-
-    private void CheckIfEnemyExists()
-    {
-        //float shortestDistance = Mathf.Infinity;
-        enemies = GameObject.FindObjectsOfType<EnemyController>();
-
-        if (enemies.Length == 0)
+        SetTargetEnemy();
+        if (targetEnemy)
+        {
+            objectToPan.LookAt(targetEnemy.transform);
+            FireAtEnemy();
+        }
+        else
         {
             Shoot(false);
+        }
+    }
+
+    private void FireAtEnemy()
+    {
+        float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.position);
+
+        if(distanceToEnemy < enemyRange)
+        {
+            Shoot(true);
+        }
+        else
+        {
+            Shoot(false);
+        }
+    }
+
+    private void SetTargetEnemy()
+    {
+        enemies = GameObject.FindObjectsOfType<EnemyController>();
+        if (enemies.Length == 0)
+        {
             return;
         }
 
-        AimAtClosestEnemy();
+
+
+        Transform closestEnemy = enemies[0].transform;
+
+
+        foreach (EnemyController testEnemy in enemies)
+        {
+            closestEnemy = GetClosest(testEnemy.transform, closestEnemy);
+        }
+        targetEnemy = closestEnemy;
+
     }
 
-    private void AimAtClosestEnemy()
+    Transform GetClosest(Transform transformA, Transform transformB)
     {
-        float shortestDistance = Mathf.Infinity;
+        float distanceA = Vector3.Distance(transform.position, transformA.position);
+        float distanceB = Vector3.Distance(transform.position, transformB.position);
 
-        foreach (EnemyController enemy in enemies)
+        if(distanceA<distanceB)
         {
-            Vector3 enemyPosition = enemy.transform.position;
-            float enemyDistance = Vector3.Distance(transform.position, enemyPosition);
-
-            if (enemyDistance < shortestDistance)
-            {
-                objectToPan.LookAt(enemy.transform);
-
-                if (enemyDistance < enemyRange)
-                {
-                    Shoot(true);
-                }
-                else
-                {
-                    Shoot(false);
-                }
-            }
+            return transformA;
         }
+
+        return transformB;
     }
 
     private void Shoot(bool isActive)
@@ -68,4 +88,45 @@ public class Tower : MonoBehaviour
         var emissionModule = bullets.emission;
         emissionModule.enabled = isActive;
     }
+
+    //private void CheckIfEnemyExists()
+    //{
+    //    //float shortestDistance = Mathf.Infinity;
+    //    enemies = GameObject.FindObjectsOfType<EnemyController>();
+
+    //    if (enemies.Length == 0)
+    //    {
+    //        Shoot(false);
+    //        return;
+    //    }
+
+    //    AimAtClosestEnemy();
+    //}
+
+    //private void AimAtClosestEnemy()
+    //{
+    //    float shortestDistance = Mathf.Infinity;
+
+    //    foreach (EnemyController enemy in enemies)
+    //    {
+    //        Vector3 enemyPosition = enemy.transform.position;
+    //        float enemyDistance = Vector3.Distance(transform.position, enemyPosition);
+
+    //        if (enemyDistance < shortestDistance)
+    //        {
+    //            objectToPan.LookAt(enemy.transform);
+
+    //            if (enemyDistance < enemyRange)
+    //            {
+    //                Shoot(true);
+    //            }
+    //            else
+    //            {
+    //                Shoot(false);
+    //            }
+    //        }
+    //    }
+    //}
+
+
 }
