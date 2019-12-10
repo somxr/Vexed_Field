@@ -78,7 +78,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801491605}
-  m_Text: 0,0
+  m_Text: 1,-1
   m_OffsetZ: 0
   m_CharacterSize: 0.055
   m_LineSpacing: 0
@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 8445745978077798516}
   - component: {fileID: 1385033222}
   - component: {fileID: 2519011584637640409}
+  - component: {fileID: 6948575957549571021}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -246,6 +247,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isExplored: 0
   exploredFrom: {fileID: 0}
+  isPlaceable: 1
+  towerPrefab: {fileID: 1204799183309424880, guid: 5d8a2798d214fbe4f82825fd250185cc,
+    type: 3}
+--- !u!65 &6948575957549571021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217190220884596132}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1001 &8812831911686921693
 PrefabInstance:
   m_ObjectHideFlags: 0

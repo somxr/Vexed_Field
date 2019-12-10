@@ -38,6 +38,6 @@ public class CollisionHandler : MonoBehaviour
     private void KillEnemy()
     {
         deathFX.Play();
-        Destroy(transform.parent.gameObject);
+        //Destroy(transform.parent.gameObject);
     }
 }
