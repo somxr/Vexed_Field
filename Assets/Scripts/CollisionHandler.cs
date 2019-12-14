@@ -37,7 +37,8 @@ public class CollisionHandler : MonoBehaviour
 
     private void KillEnemy()
     {
-        deathFX.Play();
-        //Destroy(transform.parent.gameObject);
+        var dFX = Instantiate(deathFX, transform.position, Quaternion.identity);
+        dFX.Play();
+        Destroy(gameObject);
     }
 }
