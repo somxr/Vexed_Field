@@ -11,9 +11,7 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false;
     public Waypoint exploredFrom;
     public bool isPlaceable = true;
-    bool towerPlaced = false;
 
-    [SerializeField] Tower towerPrefab;
 
 
     // Start is called before the first frame update
@@ -54,11 +52,9 @@ public class Waypoint : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (isPlaceable && !towerPlaced)
+            if (isPlaceable)
             {
-                print("Tower placed at " + gameObject.name);
-                Instantiate(towerPrefab, transform.position, Quaternion.identity);
-                towerPlaced = true;
+                FindObjectOfType<TowerFactory>().AddTower(this);
             }
             else
             {
