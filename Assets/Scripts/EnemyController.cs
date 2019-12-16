@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] float movementPeriod = 0.5f;
+    [SerializeField] ParticleSystem finalExplosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +20,19 @@ public class EnemyController : MonoBehaviour
         foreach (Waypoint waypoint in path)
         {
             transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(movementPeriod);
         }
+
+        SelfDestruct();
     }
 
-    // Update is called once per frame
-    void Update()
+    void SelfDestruct()
     {
-        
+        var dFX = Instantiate(finalExplosion, transform.position, Quaternion.identity);
+        dFX.Play();
+        float destroyDelay = dFX.main.duration;
+        Destroy(dFX.gameObject, destroyDelay);
+
+        Destroy(gameObject);
     }
 }

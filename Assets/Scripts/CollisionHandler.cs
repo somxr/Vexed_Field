@@ -35,10 +35,13 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
-    private void KillEnemy()
+    public void KillEnemy()
     {
         var dFX = Instantiate(deathFX, transform.position, Quaternion.identity);
         dFX.Play();
+        float destroyDelay = dFX.main.duration;
+        Destroy(dFX.gameObject, destroyDelay);
+
         Destroy(gameObject);
     }
 }

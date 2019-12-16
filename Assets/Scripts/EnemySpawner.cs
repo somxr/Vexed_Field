@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [Range(0.1f,120f)] [SerializeField] float secondsBetweenSpawns = 2f;
     [SerializeField] GameObject enemy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(enemy, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(enemy, new Vector3(0, 0, 0), Quaternion.identity, transform);
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
     }

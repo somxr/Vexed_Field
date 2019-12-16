@@ -11,8 +11,11 @@ public class Tower : MonoBehaviour
     [SerializeField] float enemyRange;
     EnemyController [] enemies;
 
+
+
     //State of each tower
     Transform targetEnemy;
+    public Waypoint baseWaypoint;
 
     // Start is called before the first frame update
     void Start()
